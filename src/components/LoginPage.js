@@ -1,22 +1,56 @@
-// import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
-// function handleForm(e) {
+export default function LoginPage({ setToken }) {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-// }
+  function handleForm(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-export default function LoginPage() {
-  // const [form, setForm] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  function login(event) {
+    event.preventDefault();
+
+    const request = axios
+      .post("http://localhost:5000/sign-in", {
+        email: form.email,
+        password: form.password,
+      })
+      .catch((err) => alert(err.response.data.message));
+
+    request.then((res) => {
+      console.log(res)
+      setToken(res.data.token);
+      navigate("/home");
+    });
+  }
+
   return (
     <MainContainer>
       <h1>MyWallet</h1>
-      <form>
-        <input placeholder="E-mail" />
-        <input type="password" placeholder="Senha" />
+      <form onSubmit={login}>
+        <input
+          placeholder="E-mail"
+          name="email"
+          onChange={handleForm}
+          value={form.email}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          name="password"
+          onChange={handleForm}
+          value={form.password}
+        />
         <button>Entrar</button>
       </form>
       <Link to="/sign-up">
@@ -31,7 +65,13 @@ const MainContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   h1 {
     width: 147px;
     height: 50px;

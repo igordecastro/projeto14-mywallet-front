@@ -2,9 +2,12 @@ import styled from "styled-components";
 import logout from "../assets/images/exit.svg";
 import plus from "../assets/images/add-circle.svg";
 import minus from "../assets/images/remove-circle.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function MainPage() {
+  const navigate = useNavigate()
   const wallet = [];
+
   return (
     <MainContainer>
       <div>
@@ -35,11 +38,11 @@ export default function MainPage() {
       ) : (
         <div />
       )}
-      <span>
+      <span onClick={() => navigate("/add-income")}>
         <img src={plus} alt="add income" />
         <h2>Nova entrada</h2>
       </span>
-      <span>
+      <span onClick={() => navigate("/add-expense")}>
         <img src={minus} alt="add income" />
         <h2>Nova saída</h2>
       </span>
@@ -78,6 +81,7 @@ const MainContainer = styled.div`
     border-radius: 5px;
   }
   span {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     position: absolute;

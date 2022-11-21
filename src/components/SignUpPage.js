@@ -1,24 +1,71 @@
-// import { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// function handleForm(e) {
+export default function SignUpPage() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    username: "",
+  });
 
-// }
+  function handleForm(e) {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-export default function signUpPage() {
-  // const [form, setForm] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+  function signUp(event) {
+    event.preventDefault();
+    if (form.password === form.confirmPassword) {
+      const request = axios
+        .post("http://localhost:5000/sign-up", {
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        })
+        .catch((err) => alert(err.response.data.message));
+
+      request.then(() => {
+        navigate("/");
+      });
+    } else alert("Please confirm the correct password")
+  }
+
   return (
     <MainContainer>
       <h1>MyWallet</h1>
-      <form>
-        <input placeholder="Nome" />
-        <input placeholder="E-mail" />
-        <input type="password" placeholder="Senha" />
-        <input type="password" placeholder="Confirme a senha" />
+      <form onSubmit={signUp}>
+        <input
+          placeholder="Nome"
+          name="username"
+          value={form.username}
+          onChange={handleForm}
+        />
+        <input
+          placeholder="E-mail"
+          name="email"
+          value={form.email}
+          onChange={handleForm}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          name="password"
+          value={form.password}
+          onChange={handleForm}
+        />
+        <input
+          type="password"
+          placeholder="Confirme a senha"
+          name="confirmPassword"
+          value={form.confirmPassword}
+          onChange={handleForm}
+        />
         <button>Cadastrar</button>
       </form>
       <Link to="/">
@@ -30,10 +77,16 @@ export default function signUpPage() {
 
 const MainContainer = styled.div`
   display: flex;
+  position: absolute;
   align-items: center;
   justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
   flex-direction: column;
-  margin-top: 30%;
+  margin: auto;
   h1 {
     width: 147px;
     height: 50px;

@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import SignUpPage from "./SignUpPage";
-import MainPage from "./MainPage";
+import LoginPage from "./Login/LoginPage";
+import SignUpPage from "./SignUp/SignUpPage";
+import MainPage from "./Main/MainPage";
 import GlobalStyle from "../assets/GlobalStyle.js"
-import AddExpensePage from "./AddExpensePage";
-import AddIncomePage from "./AddIncomePage";
+import AddExpensePage from "./AddExpense/AddExpensePage";
+import AddIncomePage from "./AddIncome/AddIncomePage";
 import { useState } from "react";
 
 function App() {

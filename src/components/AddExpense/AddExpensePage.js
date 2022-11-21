@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { MainContainer } from "./ExpensePageStyle";
 
 export default function AddExpensePage({ token }) {
   const [value, setValue] = useState(0);
@@ -38,8 +38,8 @@ export default function AddExpensePage({ token }) {
       <div>
         <h1>Nova saída</h1>
       </div>
-      <form>
-      <input
+      <form onSubmit={addExpense}>
+        <input
           type="number"
           placeholder="Valor"
           value={value}
@@ -55,55 +55,3 @@ export default function AddExpensePage({ token }) {
     </MainContainer>
   );
 }
-
-const MainContainer = styled.div`
-  div:first-child {
-    margin: 24px;
-    width: 88%;
-    height: 11%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    h1 {
-      font-family: "Raleway";
-      font-style: normal;
-      font-weight: 700;
-      font-size: 26px;
-      line-height: 31px;
-      color: #ffffff;
-    }
-  }
-  form {
-    height: 218px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    input {
-      width: 326px;
-      height: 58px;
-    }
-    input::placeholder {
-      font-family: "Raleway";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 23px;
-      color: #000000;
-    }
-    button {
-      width: 326px;
-      height: 46px;
-      background: #a328d6;
-      border-radius: 5px;
-      margin-bottom: 32px;
-      cursor: pointer;
-      font-family: "Raleway";
-      font-style: normal;
-      font-weight: 700;
-      font-size: 20px;
-      line-height: 23px;
-      color: #ffffff;
-    }
-  }
-`;

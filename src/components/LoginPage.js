@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-export default function LoginPage({ setToken }) {
+export default function LoginPage({ setToken, setUsername }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -30,6 +30,7 @@ export default function LoginPage({ setToken }) {
     request.then((res) => {
       console.log(res)
       setToken(res.data.token);
+      setUsername(res.data.username)
       navigate("/home");
     });
   }
